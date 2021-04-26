@@ -5,7 +5,11 @@ require 'vcr'
 VCR.configure do |config|
   config.cassette_library_dir = 'fixtures/vcr_casettes'
   config.hook_into(:webmock)
-  config.default_cassette_options = { record: :none }
+  config.default_cassette_options = { 
+    record: :new_episodes,
+    allow_unused_http_interactions: false,
+  }
+  config.configure_rspec_metadata!
 end
 
 def create_vcr_casette(fixture_name, request_uri)
