@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - master
+jobs:
+  jobs-danger:
+    name: Run Danger
     runs-on: macOS-latest
     steps:
       - name: git checkout
