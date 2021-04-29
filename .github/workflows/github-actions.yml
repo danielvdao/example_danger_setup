@@ -11,14 +11,11 @@ jobs:
     steps:
       - name: git checkout
         uses: actions/checkout@v1
-
-      - name: ruby versions
-        run: |
-          ruby --version
-          gem --version
-          bundler --version
-
-      - name: cache gems
+      - name: Set up Ruby 2.6.3
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Cache gems
         uses: actions/cache@v1
         with:
           path: vendor/bundle
