@@ -1,8 +1,13 @@
-# test_vcr
+# Example Danger Setup
 
-Playing around w/ VCR locally
+Look at Pull Requests for example
 
-Current workflow
-- Run bundle exec rspec synopsis_spec.rb
-- Create a cassette and don't allow any unused cassettes (support backwards compatability)
-- Force people to create new cassettes?
+Integrate with GH Workflows to do the following:
+- Set up an Action
+- Set up Dangerfile
+- Splits up Dangerfile so that teams can own their own rules and demonstrate how teams can further enhance those rules
+- Adds ignores so that teams only fire rules based on what is acceptable
+
+Ideas:
+- Does this need to be in CircleCI? Ideally it "should" be, but it seems like CircleCI has not so great support and this could cause erroneous builds
+- Suggestion => Use GH workflow and set up action (we already have this) and see how it will play with team, then if it feels ideal, we can do something better like extend to CircleCI
