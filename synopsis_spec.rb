@@ -2,7 +2,7 @@
 
 require './spec_helper'
 
-RSpec.describe 'synopsis', vcr: true do
+RSpec.describe 'synopsis spec', vcr: true do
   describe '.synopsis' do
     it 'makes a request' do
       # create_vcr_casette('vcr_test', 'http://example.com/')
