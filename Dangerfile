@@ -1,23 +1,13 @@
-if github.pr_body.length < 5
-  fail "Please provide a summary in the Pull Request description"
-end
+CHANGED_FILES = (git.added_files + git.modified_files).freeze
 
-unless github.pr_title.include? "[SPOT]"
-  fail "Please add title header [SPOT-XXXX] to your PR"
-end
+Dir[File.join(__dir__, ".danger/*.rb")].each do |danger_rule_file|
+  danger_rule = danger_rule_file.gsub(%r{(^./.danger/|.rb)}, "")
+  $stdout.print "- #{danger_rule} "
+  eval File.read(danger_rule_file), binding, File.expand_path(danger_rule_file) # rubocop:disable Security/Eval
+  $stdout.puts "✅"
+rescue Exception => e # rubocop:disable Lint/RescueException
+  $stdout.puts "💥"
 
-unless github.pr_body.include? "JIRA"
-  fail "Please add JIRA links to your PR"
-end
-
-unless github.pr_body.include? "WHAT"
-  fail "Please add WHAT to your PR"
-end
-
-unless github.pr_body.include? "WHY"
-  fail "Please add WHY to your PR"
-end
-
-unless github.pr_body.include? "HOW"
-  fail "Please add HOW to your PR"
+  fail "Danger rule :#{danger_rule} failed with exception: #{e.message}\n" \
+       "Backtrace: \n#{e.backtrace.join("\n")}"
 end
